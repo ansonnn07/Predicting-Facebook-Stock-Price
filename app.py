@@ -34,11 +34,14 @@ tf.random.set_seed(42)
 # Add title, descriptions and image
 st.title('COVID-19 Malaysia')
 st.markdown('''
-The Facebook stock data is obtained directly through Yahoo Finance API and they provide live updates.
-This app is built to show the application of some time series forecasting models.
-The live updates to the Facebook stock data can also be seen here,
-with Bollinger Bands provided, as Bollinger Bands is one of the methods used to determine whether
+- The **Facebook stock data** is obtained directly through Yahoo Finance API and they provide live updates.
+- This app is built to show the application of some **time series forecasting algorithms**.
+- **DISCLAIMER**: This is just an attempt to forecast a time series model, 
+it is strictly not advisable to rely solely on this to make decisions on investing assets. 
+- The **live updates** to the Facebook stock data can also be seen here.
+- A figure with **Bollinger Bands** is also provided, as Bollinger Bands is one of the methods used to determine whether
 it is beneficial to buy or sell at a given time.
+
 
 - App built by [Anson](https://www.linkedin.com/in/ansonnn07/)
 - Built with `Python`, using `streamlit`, `yfinance`, `pandas`, `numpy`, `matplotlib`
@@ -49,7 +52,9 @@ it is beneficial to buy or sell at a given time.
 ''')
 st.markdown("""
 **Tips about the figures**:
-All the figures are ***interactive***. You can zoom in by dragging in the figure, and reset the axis by double-clicking. The legends can be clicked to disable or enable specific legends.
+All the figures are ***interactive***. You can **zoom in** by dragging in the figure,
+and **reset** the axis by double-clicking. 
+The **legends** can also be clicked to disable or enable specific legends.
 """)
 
 st.markdown('---')
@@ -118,6 +123,23 @@ fig.update_xaxes(
 )
 st.plotly_chart(fig, use_container_width=True)
 
+df_roll = df['Close'].rolling(7, min_periods=1, center=True).mean()
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=df.index, y=df['Close'], name="Close",
+                         mode='markers', marker_size=3))
+fig.add_trace(go.Scatter(x=df_roll.index, y=df_roll.values, name="Average",
+                         line_width=1.6))
+fig.update_layout(title='Daily Closing Price VS 7-day Moving Average',
+                  hovermode='x',
+                  height=600,
+                  legend=dict(
+                      yanchor="top",
+                      y=0.99,
+                      xanchor="left",
+                      x=0.01
+                  ))
+st.plotly_chart(fig, use_container_width=True)
+
 st.header("**Forecasting Results**")
 results_df.rename(columns={'Close': 'Closing Price',
                            'LSTM_pred': 'LSTM Predictions',
@@ -139,17 +161,19 @@ st.plotly_chart(fig, use_container_width=True)
 st.markdown("""
 **Explanation for the predictive models**
 
-- ARIMA and SARIMAX (red and green lines) are common machine learning models used for time series forecasting.
+- **ARIMA** and **SARIMAX** (red and green lines) are common machine learning models used for time series forecasting.
 In this case, they did not perform so well as compared to the other models.
-- Prophet is another type of model developed by Facebook themselves, but also did not perform as well,
-because Prophet is designed specifically for time series that has very obvious seasonality characteristics and consistent overall average,
-unlike the current time series, where there is a clear trend of increasing upwards.
-- LSTM (Long Short Term Memory) is a deep learning model, more specifically a type of Recurrent Neural Networks.
+- **Prophet** is another type of model developed by Facebook themselves, that also did not perform as well,
+because Prophet is designed specifically for time series that has very obvious **seasonality** 
+characteristics and **consistent overall average**,
+unlike the current time series, where there is a clear **trend of increasing** upwards.
+- **LSTM** (Long Short Term Memory) is a deep learning model, more specifically a type of Recurrent Neural Networks.
 it shows promising results predicting the overall values of the stock price, 
-with a root mean square error of 9.2134 on the **predictions** when given the ***actual*** data.
+with a **root mean square error** of **9.2134** on the **predictions** when given the ***actual*** data.
 This is because the LSTM in this case uses **previous 10 days** to predict ***one day*** into the future, 
-therefore, the results will be very close to the original closing price.
-When forecasting the stock price of the future 30 days (blue lines) using only the data of 10 days, 
+therefore, the results will be very close to the original closing price 
+as it can capture the rising and dropping trend.
+When **forecasting** the stock price of the **future 30 days** (blue lines) using only the **actual data of 10 days**, 
 it does show acceptable results but it has to be validated later when the actual data has been obtained.
 """)
 
@@ -187,21 +211,4 @@ st.subheader('**Bollinger Bands**')
 qf = cf.QuantFig(today_df, legend='top', name='GS')
 qf.add_bollinger_bands()
 fig = qf.iplot(asFigure=True)
-st.plotly_chart(fig, use_container_width=True)
-
-df_roll = df['Close'].rolling(7, min_periods=1, center=True).mean()
-fig = go.Figure()
-fig.add_trace(go.Scatter(x=df.index, y=df['Close'], name="Close",
-                         mode='markers', marker_size=3))
-fig.add_trace(go.Scatter(x=df_roll.index, y=df_roll.values, name="Average",
-                         line_width=1.6))
-fig.update_layout(title='Daily Closing Price VS 7-day Moving Average',
-                  hovermode='x',
-                  height=600,
-                  legend=dict(
-                      yanchor="top",
-                      y=0.99,
-                      xanchor="left",
-                      x=0.01
-                  ))
 st.plotly_chart(fig, use_container_width=True)
