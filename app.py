@@ -79,18 +79,12 @@ def load_model():
 
 
 @st.cache
-def load_scaler():
-    return pickle.load(open('data//scaler.pkl', 'rb'))
-
-
-@st.cache
 def load_results():
     return pd.read_csv('data//full_results.csv', index_col=[0], parse_dates=[0])
 
 
 df = read_fb_stock()
 model = load_model()
-scaler = load_scaler()
 results_df = load_results()
 
 full_df = yf.download(tickerSymbol)
