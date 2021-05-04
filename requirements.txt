@@ -1,0 +1,8 @@
+numpy==1.19.2
+pandas==1.2.4
+plotly==4.14.3
+yfinance==0.1.59
+cufflinks==0.17.3
+tensorflow-gpu==2.4.1
+Keras==2.4.3
+streamlit==0.81.0

@@ -3,11 +3,7 @@ import tensorflow as tf
 import streamlit as st
 import numpy as np
 import pandas as pd
-import seaborn as sns
-from datetime import datetime, timedelta
-import matplotlib.pyplot as plt
 from pandas.plotting import register_matplotlib_converters
-from PIL import Image
 import yfinance as yf
 import plotly.graph_objs as go
 import cufflinks as cf
@@ -44,7 +40,7 @@ it is beneficial to buy or sell at a given time.
 
 
 - App built by [Anson](https://www.linkedin.com/in/ansonnn07/)
-- Built with `Python`, using `streamlit`, `yfinance`, `pandas`, `numpy`, `matplotlib`
+- Built with `Python`, using `streamlit`, `yfinance`, `pandas`, `numpy`, `plotly`
 
 **Links**: [GitHub](https://github.com/ansonnn07/Predicting-Facebook-Stock-Price), 
 [LinkedIn](https://www.linkedin.com/in/ansonnn07/),
