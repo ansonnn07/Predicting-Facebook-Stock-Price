@@ -28,7 +28,7 @@ np.random.seed(42)
 tf.random.set_seed(42)
 
 # Add title, descriptions and image
-st.title('COVID-19 Malaysia')
+st.title('Facebook Stock Price')
 st.markdown('''
 - The **Facebook stock data** is obtained directly through Yahoo Finance API and they provide live updates.
 - This app is built to show the application of some **time series forecasting algorithms**.
