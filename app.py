@@ -40,7 +40,7 @@ it is beneficial to buy or sell at a given time.
 
 
 - App built by [Anson](https://www.linkedin.com/in/ansonnn07/)
-- Built with `Python`, using `streamlit`, `yfinance`, `pandas`, `numpy`, `plotly`
+- Built with `Python`, using `streamlit`, `tensorflow`, `sklearn`, `yfinance`, `pandas`, `numpy`, `plotly`
 
 **Links**: [GitHub](https://github.com/ansonnn07/Predicting-Facebook-Stock-Price), 
 [LinkedIn](https://www.linkedin.com/in/ansonnn07/),
